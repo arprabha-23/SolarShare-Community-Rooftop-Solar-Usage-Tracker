@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: solarshare-postgres
+    environment:
+      POSTGRES_DB: solarshare
+      POSTGRES_USER: solarshare
+      POSTGRES_PASSWORD: solarshare
+    ports:
+      - "5432:5432"
+    volumes:
+      - solarshare-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U solarshare -d solarshare"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  solarshare-data:
